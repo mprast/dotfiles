@@ -119,6 +119,8 @@ set omnifunc=syntaxcomplete#Complete
 
 "couple 'a Tsuquyomi aliases
 cnoreabbrev ti TsuImport
+"this will show the type for the term under the cursor
+autocmd FileType typescript nmap <buffer> <Leader>t : <C-u>echo tsuquyomi#hint()<CR>
 
 "tsuquyomi opts (Typescript compilation)
 let g:tsuquyomi_disable_quickfix = 1
