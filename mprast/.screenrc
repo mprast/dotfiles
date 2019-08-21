@@ -1,0 +1,59 @@
+# =========================================================
+# Windowing setup & keybindings
+# =========================================================
+
+ # scratchpad - for when you just want a whole-screen terminal, for whatever
+ # TOOD(mprast): do we need the source ~/.bashrcs?
+ screen
+ stuff "source ~/.bashrc^M"
+ stuff "clear^M"
+ remove
+
+ # set up the default session; big editor window on the left; 
+ # two smaller panels on the right.
+ split -v
+ screen
+ stuff "source ~/.bashrc^M"
+ stuff "clear^M"
+ focus
+ screen
+ stuff "source ~/.bashrc^M"
+ stuff "clear^M"
+ split
+ focus
+ screen
+ stuff "source ~/.bashrc^M"
+ stuff "clear^M"
+
+ # move between windows with alt + arrow keys
+ bindkey "^[[1;3D" focus left
+ bindkey "^[[1;3C" focus right
+ bindkey "^[[1;3A" focus up
+ bindkey "^[[1;3B" focus down
+
+ # keybindings for pivoting
+ # first, remove all regions. then restore 
+ # windows in the order that fits with 
+ # the pivot (1 is big for ^o, 2 is big for 
+ # ^p). 
+ bindkey "^o" eval "only" "remove" "select 1" "split -v" "focus" "select 2" "split" "focus" "select 3" "focus left"
+ bindkey "^p" eval "only" "remove" "select 2" "split" "focus" "select 1" "split -v" "focus" "select 3" "focus up"
+
+ # switch to scratchpad. use ^p or ^o to get out of it.
+ bindkey "^s" eval "only" "select 0"
+
+ # change the escape key for entering screen commands. 
+ # bash uses ^A to go to the start of a line and 
+ # we want to be able to use that
+ escape ^``
+
+ # =========================================================
+ # Message Bars & Alerts
+ # =========================================================
+
+ # hardstatus line - shows hostname, CPU, mem, time of day
+ # at the bottom of the session
+ backtick 1 10 10 "$HOME/.cpumemoneline.sh"
+ hardstatus alwayslastline
+ hardstatus string "%1`."
+ vbell off 
